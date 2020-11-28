@@ -1,10 +1,9 @@
-# -*- coding: cp932 -*-
 require 'excelscan'
 
-es = ExcelScan.new(nil)
+es = ExcelScan.new
 
 col = es.insert
-col[0] = "‚X‚X‚Ì•\"
+col[0] = "Table of 99"
 
 9.times do |y|
   col = es.insert

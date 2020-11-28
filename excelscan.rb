@@ -56,11 +56,16 @@ end
 class ExcelScan
   include Enumerable
 
-  def initialize(fname, sname = nil, visible = true)
+  def initialize(fname = nil, sname = nil, visible = true)
     @excel = TheExcel.instance
     @excel.Visible = visible
     if fname then
-      @book = @excel.Workbooks.open fname
+      if fname[0] == '/' or fname[0] == '\\' then
+        fname2 = fname
+      else
+        fname2 = "c:/cygwin#{Dir.pwd}/#{fname}".gsub('/', "\\")
+      end
+      @book = @excel.Workbooks.open fname2
     else
       @book = @excel.Workbooks.add
     end
@@ -180,6 +185,10 @@ class ExcelScan
         lcnt = lcnt + 1
       end
     end
+  end
+
+  def quit
+    @excel.quit
   end
 
   def close
